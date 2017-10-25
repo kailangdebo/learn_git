@@ -116,7 +116,9 @@ Git的版本库里存了很多东西，其中最重要的就是称为stage（或
 
 ### 10 删除文件
 
-当你直接在文件管理器删除文件后，现在你有两个选择，一是确实要从版本库中删除该文件，那就用命令git rm删掉，并且git commit：
+当你直接在文件管理器删除文件后，现在你有两个选择，
+
+一是确实要从版本库中删除该文件，那就用命令`git rm`删掉，并且`git commit`：
 
 	$ git rm test.txt
 	rm 'test.txt'
@@ -124,3 +126,35 @@ Git的版本库里存了很多东西，其中最重要的就是称为stage（或
 	[master d17efd8] remove test.txt
 	 1 file changed, 1 deletion(-)
 	 delete mode 100644 test.txt
+
+另一种情况是删错了，因为版本库里还有呢，所以可以很轻松地把误删的文件恢复到最新版本：
+
+	$ git checkout -- test.txt
+
+### 11 关联一个远程库 
+
+把一个已有的本地仓库与之关联，然后，把本地仓库的内容推送到GitHub仓库。
+
+`git remote add origin git@server-name:path/repo-name.git`
+
+	$ git remote add origin git@github.com:michaelliao/learngit.git
+
+### 12 把本地库的所有内容推送到远程库上
+
+添加后，远程库的名字就是origin，这是Git默认的叫法。把本地库的内容推送到远程，用git push命令，实际上是把当前分支master推送到远程
+
+由于远程库是空的，我们第一次推送master分支时，加上了-u参数，Git不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令。
+
+	$ git push -u origin master
+	Counting objects: 19, done.
+	Delta compression using up to 4 threads.
+	Compressing objects: 100% (19/19), done.
+	Writing objects: 100% (19/19), 13.73 KiB, done.
+	Total 23 (delta 6), reused 0 (delta 0)
+	To git@github.com:michaelliao/learngit.git
+	 * [new branch]      master -> master
+	Branch master set up to track remote branch master from origin.
+
+从现在起，只要本地作了提交，就可以通过命令：
+
+	$ git push origin master
