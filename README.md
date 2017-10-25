@@ -158,3 +158,14 @@ Git的版本库里存了很多东西，其中最重要的就是称为stage（或
 从现在起，只要本地作了提交，就可以通过命令：
 
 	$ git push origin master
+
+### 13 远程克隆 `git clone`
+
+用命令git clone克隆一个本地库
+
+	$ git clone git@github.com:michaelliao/gitskills.git
+	Cloning into 'gitskills'...
+	remote: Counting objects: 3, done.
+	remote: Total 3 (delta 0), reused 0 (delta 0)
+	Receiving objects: 100% (3/3), done.
+
