@@ -169,3 +169,62 @@ Git的版本库里存了很多东西，其中最重要的就是称为stage（或
 	remote: Total 3 (delta 0), reused 0 (delta 0)
 	Receiving objects: 100% (3/3), done.
 
+### 14 分支原理
+
+一开始的时候，`master`分支是一条线，Git用`master`指向最新的提交，再用`HEAD`指向`master`，就能确定当前分支，以及当前分支的提交点
+
+![](images/1.png)
+
+Git创建一个分支很快，因为除了增加一个`dev`指针，改改`HEAD`的指向，工作区的文件都没有任何变化
+
+![](images/3.png)
+
+![](images/4.png)
+
+假如我们在`dev`上的工作完成了，就可以把`dev`合并到`master`上。直接把`master`指向`dev`的当前提交，就完成了合并：
+
+![](images/5.png)
+
+合并完分支后，甚至可以删除dev分支。删除dev分支就是把dev指针给删掉，删掉后，我们就剩下了一条master分支：
+
+![](images/6.png)
+
+### 15 分支操作
+
+
+（1）、创建`dev`分支，然后切换到`dev`分支
+
+	$ git checkout -b dev
+	Switched to a new branch 'dev'
+
+`git checkout`命令加上`-b`参数表示创建并切换，相当于以下两条命令：
+
+	$ git branch dev
+	$ git checkout dev
+	Switched to branch 'dev'
+
+（2）、用`git branch`命令查看当前分支：
+	
+	$ git branch
+	* dev
+	  master
+
+（3）、`git add`在dev上修改,提交
+
+	$ git add readme.txt 
+	$ git commit -m "branch test"
+	[dev fec145a] branch test
+	 1 file changed, 1 insertion(+)
+
+（4）、`git checkout master`切换回master分支
+
+	$ git checkout master
+	Switched to branch 'master'
+
+（5）、用`git merge dev`把dev分支的工作成果合并到master分支上
+	
+	$ git merge dev
+	Updating d17efd8..fec145a
+	Fast-forward
+	 readme.txt |    1 +
+	 1 file changed, 1 insertion(+)
